@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>VINDOT LLC Contact Form</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/favicon-16x16.png">
+    <link rel="stylesheet" href="styles_green.css">
+</head>
+
+<body>
+    <!-- <p style="color: black;" id="demo">Hi</p>
+    <script>
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+
+        var x = document.getElementById("demo");
+        x.innerHTML = "Browser width: " + w + ", height: " + h + ".";
+    </script> -->
+
+    <div class="form">
+        <form id="myForm">
+            <!-- form action should be a target url -->
+            <div>
+                <p>
+                <div class="row">
+                    <div class="column">
+                        <img src="./images/16_bit_house.jpg" alt="logo" height="110px" width="120px">
+                        <div class="column">
+                            <div class="row">
+                                <h4>
+                                    VINDOT LLC<br>
+                                    Saint Louis, MO<br>
+                                    Contact Info:<br>
+                                    1212334556<br>
+                                    us@vindot.com
+
+                                </h4>
+                            </div>
+                        </div>
+                        </p>
+                    </div>
+                    <p style="font-size: larger;">We appreciate your residency!</p>
+
+                </div>
+
+                <div class="container">
+
+                </div>
+                <input type="text" class="textinput" id="name" name="name" placeholder="Please enter your name"
+                    required><br>
+                <br>
+                <input type="email" class="textinput" id="email" name="email" placeholder="Please enter your email"
+                    required title="Please enter a valid email address" maxlength="64">
+
+                <br>
+                <br>
+                <input type="tel" class="textinput" id="phone" name="phone" placeholder="Please enter your phone number"
+                    pattern="^\d{10}$" title="Please enter 10 digit number" maxlength="10">
+                <br>
+                </p>
+                <label for="textarea"></label>
+                <p style="font-size: larger;">How can we help?</p>
+                <textarea id="text" name="text" rows="10" cols="50" style="text-align:left; vertical-align:top; padding:10px"></textarea>
+                <br>
+                <br>
+
+                <div class="container">
+                    <input type="submit" value="Submit" id="submit" style="height:50px; width:100px;">
+                    <input type="reset" value="Reset" style="height:50px; width:100px">
+                </div>
+            </div>
+            <p id="responseMessage" style="display: none; text-align: center"></p>
+            <!-- Area to display the response message -->
+        </form>
+
+
+    </div>
+
+    <script>
+
+        document.getElementById('myForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            var phoneNumberString = document.getElementById('phone').value
+            function formatPhoneNumber(phoneNumberString) {
+                var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
+                var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+                if (match) {
+                    return '(' + match[1] + ') ' + match[2] + '-' + match[3];
+                }
+                return null;
+            }
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = formatPhoneNumber(phoneNumberString);
+            const text = document.getElementById('text').value;
+            console.log(phone)
+
+            const queryString = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&text=${encodeURIComponent(text)}`;
+            const url = `https://3b7196t76h.execute-api.us-east-2.amazonaws.com/dev/?${queryString}`;
+            console.log(url)
+            fetch(url, {
+                method: 'POST'
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    const responseMessage = document.getElementById('responseMessage');
+                    <!-- responseMessage.textContent = 'Thank you for your response! Someone from Vindot LLC will be in contact with you.';
+                    responseMessage.style.display = 'block';
+                    document.getElementById('myForm').reset(); // Reset the form -->
+                    window.location.href = 'thank-you.html'
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    const responseMessage = document.getElementById('responseMessage');
+                    responseMessage.textContent = 'An error occurred while processing your request. Please try again.';
+                    responseMessage.style.display = 'block';
+                });
+        });
+    </script>
+</body>
+
+</html>
