@@ -70,11 +70,6 @@ form {
     margin: 0 auto;
 }
 
-.textinput {
-    flex: 1;
-    padding: 10px;
-    min-width: 50.5%;
-}
 
 img {
     /* width: 150px; */
@@ -132,6 +127,13 @@ img {
     /* flex: 1; */
     /* margin: 2em 10%;
     width: 50%; */
+}
+
+
+.textinput {
+    flex: 1;
+    padding: 10px;
+    min-width: 50.5%;
 }
 
 /* textarea {vertical-align: top;} */
