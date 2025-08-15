@@ -65,6 +65,8 @@ form {
     border-color: grey;
 }
 
+body {background-color: rgb(237, 242, 246);}
+
 .container {
     width: 50%;
     margin: 0 auto;
