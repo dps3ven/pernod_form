@@ -15,7 +15,17 @@ def get_tenant_unit():
         data = yaml.safe_load(file)
     return [tenant['unit'] for tenant in data['tenants']]
 
+def verify_tenant(name, unit):
+    with open('renters.yml', 'r') as file:
+        data = yaml.safe_load(file)
+    
+    for tenant in data['tenants']:
+        if tenant['name'].lower() == name.lower() and tenant['unit'] == unit:
+            return True
+    return False
+
 if __name__ == "__main__":
     print(get_all_tenants())
     print(get_tenant_names())
     print(get_tenant_unit())
+    print(verify_tenant("XXX", "XXXXX"))
