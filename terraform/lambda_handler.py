@@ -49,7 +49,8 @@ def lambda_handler(event, context):
     # </body>
     # </html>
    #"""
-    
+    ### if query paramters match the yaml file,
+    ### send email, other wise, continue to error form or misdirection
 
     CHARSET = "UTF-8"
     client = boto3.client('ses', region_name="us-east-2")

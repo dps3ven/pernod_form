@@ -58,6 +58,9 @@
                 <input type="tel" class="textinput" id="phone" name="phone" placeholder="Please enter your phone #"
                     pattern="^\d{10}$" title="Please enter 10 digit number" maxlength="10">
                 <br>
+                <br>
+                <input type="text" class="textinput" id="unit" name="unit" placeholder="Please enter your unit #" required>
+                <br>
                 </p>
                 <label for="textarea"></label>
                 <p style="font-size: larger;">How can we help?</p>
@@ -93,10 +96,11 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const phone = formatPhoneNumber(phoneNumberString);
+            const unit = document.getElementById('unit').value;
             const text = document.getElementById('text').value;
             console.log(phone)
 
-            const queryString = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&text=${encodeURIComponent(text)}`;
+            const queryString = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&unit=${encodeURIComponent(unit)}&text=${encodeURIComponent(text)}`;
             const url = `https://3b7196t76h.execute-api.us-east-2.amazonaws.com/dev/?${queryString}`;
             console.log(url)
             fetch(url, {
