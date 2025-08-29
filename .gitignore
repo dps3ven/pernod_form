@@ -3,4 +3,4 @@ venv
 .terraform
 *.tfstate*
 *.zip
-tenants.yml
+*tenants.yml
