@@ -1,3 +1,4 @@
 output "api_gateway" {
-    value = aws_api_gateway_rest_api.residency_checker_api
+ 
+    value = aws_api_gateway_rest_api.residency_checker_api.execution_arn
 }
