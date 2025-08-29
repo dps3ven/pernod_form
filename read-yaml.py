@@ -33,21 +33,8 @@ def verify_tenant(name, unit, phone):
             status = True
     return status
 
-# def call_amazon_api(name, unit):
-#     if verify_tenant(name, unit):
-#         url = "https://3b7196t76h.execute-api.us-east-2.amazonaws.com/dev/"
-#         response = requests.post(url)
-#         return response.json()
-#     return None
-
 if __name__ == "__main__":
-    download_tenant_yaml()
-    # print(get_all_tenants())
-    # print(get_tenant_names())
-    # print(get_tenant_unit())
-    # print(verify_tenant("Paco Greenwell", "5069B", "555-0456"))
-    # print(verify_tenant("Pinko Greenwell", "5069B", "555-0456"))
-    result = (verify_tenant("Paci Greenwell", "5069B", "555-0456"))
+    result = (verify_tenant("Tenant", "5069B", "(555)2171212)"))
     if result == True:
         print("Forward to LLC")
     else:

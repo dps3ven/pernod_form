@@ -9,6 +9,6 @@ resource "aws_s3_bucket" "vindot_tenants" {
 resource "aws_s3_object" "object" {
   bucket = aws_s3_bucket.vindot_tenants.bucket
   key    = "tenants.yml"
-  source = "./renters.yml"
+  source = "./tenants.yml"
 
 }
