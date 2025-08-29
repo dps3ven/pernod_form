@@ -2,3 +2,4 @@
 .terraform
 */*.tfstate*
 *venv/
+*tenants.yml
