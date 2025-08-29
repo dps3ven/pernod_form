@@ -1,0 +1,17 @@
+tenants:
+  - name: Tim O'Bryen
+    email: john.smith@email.com
+    phone: 555-0123
+    unit: 5071B
+  - name: Simone Hall
+    email: jane.doe@email.com
+    phone: 555-0456
+    unit: 5071A
+  - name: Mitch
+    email: jane.doe@email.com
+    phone: 555-0456
+    unit: 5069A
+  - name: Paco Greenwell
+    email: jane.doe@email.com
+    phone: 555-0456
+    unit: 5069B
