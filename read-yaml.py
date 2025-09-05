@@ -35,6 +35,7 @@ def verify_tenant(email, unit, phone):
 
 if __name__ == "__main__":
     download_tenant_yaml()
+    verify_tenant()
     result = (verify_tenant("owners@vindotllc","5069A", "(217) 520-1212"))
     if result == True:
         print("Forward to LLC")
