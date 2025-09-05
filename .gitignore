@@ -3,3 +3,4 @@
 */*.tfstate*
 *venv/
 *tenants.yml
+*.zip
