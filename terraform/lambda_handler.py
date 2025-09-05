@@ -1,29 +1,11 @@
 import json
 import boto3
 import datetime
-import yaml
 
 from botocore.exceptions import ClientError
 now = datetime.datetime.now()
 
-def download_tenant_yaml():
-    s3 = boto3.client('s3')
-    s3.download_file("vindot-llc-tenants", "tenants.yml", "tenants.yml")
-    
-def verify_tenant(email, unit, phone):
-    status = False
-    with open('tenants.yml', 'r') as file:
-        data = yaml.safe_load(file)
-
-    for tenant in data['tenants']:
-        if (tenant['email'] == email and 
-            #tenant['unit'] == unit and 
-            tenant['phone'] == phone):
-            status = True
-    return status
-    
 def lambda_handler(event, context):
-    download_tenant_yaml()
     # Log the entire event object for debugging
     print("Event:", json.dumps(event))
     
@@ -34,19 +16,16 @@ def lambda_handler(event, context):
     email = query_params.get('email')
     phone =  query_params.get('phone')
     text =  query_params.get('text')
-    if verify_tenant == True:
-        print("This is a tenant")
-    else:
-        print("This is fraud")
+
     
     # message = "{} {} {}".format(manner, business, family)
     
     # Your logic here
     message = (f"VINDOT FTW")
         # This address must be verified with Amazon SES.
-    SENDER = "onwers@vindot.llc"
-    RECIPIENTS = ["dprme1@yahoo.com"]
-    SUBJECT = " VINDOT LLC Other Form Response"
+    SENDER = "noreply@dps3ven.com"
+    RECIPIENTS = ["dpitpro@gmail.com","dprme1@yahoo.com"]
+    SUBJECT = " VINDOT LLC Form Response"
     BODY_TEXT = message
     
     BODY_HTML = """
