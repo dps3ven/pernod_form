@@ -23,7 +23,7 @@ def lambda_handler(event, context):
     # Your logic here
     message = (f"VINDOT FTW")
         # This address must be verified with Amazon SES.
-    SENDER = "noreply@dps3ven.com"
+    SENDER = "owners@vindot.llc"
     RECIPIENTS = ["dpitpro@gmail.com","dprme1@yahoo.com"]
     SUBJECT = " VINDOT LLC Form Response"
     BODY_TEXT = message
