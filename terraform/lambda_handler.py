@@ -16,7 +16,16 @@ def lambda_handler(event, context):
     email = query_params.get('email')
     phone =  query_params.get('phone')
     text =  query_params.get('text')
-
+    # Extract data from request body
+    # body_str = event.get('body', '{}')
+    # if body_str:
+    #     body = json.loads(body_str)
+    #     name = body.get('name')
+    #     email = body.get('email')
+    #     phone = body.get('phone')
+    #     text = body.get('text')
+    # else:
+    #     name = email = phone = text = None
     
     # message = "{} {} {}".format(manner, business, family)
     
