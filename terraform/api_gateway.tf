@@ -16,6 +16,17 @@ import {
 
 resource "aws_api_gateway_deployment" "deployment" {
   rest_api_id = aws_api_gateway_rest_api.residency_checker_api.id
+  
+  triggers = {
+    redeployment = sha1(jsonencode([
+      aws_api_gateway_method.post,
+      aws_api_gateway_integration.post,
+    ]))
+  }
+  
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 import {
@@ -45,13 +56,6 @@ resource "aws_api_gateway_method" "post" {
   resource_id   = data.aws_api_gateway_resource.resource.id
   http_method   = "POST"
   authorization = "NONE"
-
-  request_parameters = {
-    "method.request.querystring.email" = false,
-    "method.request.querystring.name"  = false,
-    "method.request.querystring.phone" = false,
-    "method.request.querystring.text"  = false
-  }
 }
 
 import {
