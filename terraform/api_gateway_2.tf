@@ -15,7 +15,7 @@ resource "aws_api_gateway_integration" "options" {
   resource_id          = data.aws_api_gateway_resource.resource.id
   http_method          = aws_api_gateway_method.options.http_method
   type                 = "MOCK"
-  content_handling     = "CONVERT_TO_TEXT"
+  # content_handling     = "CONVERT_TO_TEXT"
   cache_namespace      = data.aws_api_gateway_resource.resource.id
   cache_key_parameters = []
   passthrough_behavior = "WHEN_NO_MATCH"
