@@ -21,24 +21,22 @@ def download_tenant_yaml():
 #         data = yaml.safe_load(file)
 #     return [tenant['unit'] for tenant in data['tenants']]
 
-def verify_tenant(email, unit, phone):
+def verify_tenant(email, unit):
     status = False
     with open('tenants.yml', 'r') as file:
         data = yaml.safe_load(file)
     
     for tenant in data['tenants']:
         if (tenant['email'] == email and 
-            tenant['unit'] == unit and 
-            tenant['phone'] == phone):
+            tenant['unit'] == unit):
             status = True
     return status
 
 if __name__ == "__main__":
     download_tenant_yaml()
-    verify_tenant()
-    result = (verify_tenant("owners@vindotllc","5069A", "(217) 520-1212"))
+    result = (verify_tenant("ownes@vindotllc","5069A"))
     if result == True:
         print("Forward to LLC")
     else:
-        print("Please revist your form input.")
+        print("https://5069-pernod-form.s3.us-east-2.amazonaws.com/not-current-tenant.html")
     # print(call_amazon_api("XXX", "XXXXX"))
