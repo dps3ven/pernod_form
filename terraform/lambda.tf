@@ -11,11 +11,18 @@ resource "aws_lambda_function" "lambda" {
   description   = "5069 Pernod"
   filename      = "residency_checker.zip"
   function_name = "${local.property}_residency_form"
-  role          = data.aws_iam_role.need_to_standardize_role.arn
+  role          = aws_iam_role.iam_for_lambda.arn
   handler       = "lambda_handler.lambda_handler"
 
   #source_code_hash = data.archive_file.lambda.output_base64sha256
   timeout = 600
   publish = false
   runtime = var.runtime
+
+  # environment {
+  #   variables = {
+  #     LOG_LEVEL = "DEBUG"
+  #   }
+  # }
+
 }

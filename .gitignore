@@ -1,6 +1,7 @@
 .env
 venv
 .terraform
-*.tfstate*
-*.zip
+*/*.tfstate*
+*venv/
 *tenants.yml
+*.zip
