@@ -10,7 +10,7 @@ def download_tenant_yaml():
     s3 = boto3.client('s3')
     s3.download_file("vindot-llc-tenants", "tenants.yml", "/tmp/tenants.yml")
 
-def verify_tenant(email, unit, phone):
+def verify_tenant(email, unit):
     status = False
     with open('/tmp/tenants.yml', 'r') as file:
         data = yaml.safe_load(file)
