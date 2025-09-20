@@ -17,8 +17,7 @@ def verify_tenant(email, unit, phone):
     
     for tenant in data['tenants']:
         if (tenant['email'] == email and 
-            tenant['unit'] == unit and 
-            tenant['phone'] == phone):
+            tenant['unit'] == unit):
             status = True
     return status
 
