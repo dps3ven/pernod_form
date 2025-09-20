@@ -11,10 +11,10 @@ import {
 }
 
 resource "aws_api_gateway_integration" "options" {
-  rest_api_id          = aws_api_gateway_rest_api.residency_checker_api.id
-  resource_id          = data.aws_api_gateway_resource.resource.id
-  http_method          = aws_api_gateway_method.options.http_method
-  type                 = "MOCK"
+  rest_api_id = aws_api_gateway_rest_api.residency_checker_api.id
+  resource_id = data.aws_api_gateway_resource.resource.id
+  http_method = aws_api_gateway_method.options.http_method
+  type        = "MOCK"
   # content_handling     = "CONVERT_TO_TEXT"
   cache_namespace      = data.aws_api_gateway_resource.resource.id
   cache_key_parameters = []
