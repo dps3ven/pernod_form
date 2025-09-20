@@ -5,3 +5,4 @@ venv
 *venv/
 *tenants.yml
 *.zip
+*package*
