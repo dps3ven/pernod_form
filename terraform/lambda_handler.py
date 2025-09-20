@@ -1,9 +1,26 @@
 import json
 import boto3
 import datetime
+import yaml
 
 from botocore.exceptions import ClientError
 now = datetime.datetime.now()
+
+def download_tenant_yaml():
+    s3 = boto3.client('s3')
+    s3.download_file("vindot-llc-tenants", "tenants.yml", "/tmp/tenants.yml")
+
+def verify_tenant(email, unit, phone):
+    status = False
+    with open('/tmp/tenants.yml', 'r') as file:
+        data = yaml.safe_load(file)
+    
+    for tenant in data['tenants']:
+        if (tenant['email'] == email and 
+            tenant['unit'] == unit):
+            status = True
+    return status
+
 
 def lambda_handler(event, context):
     # Log the entire event object for debugging
@@ -12,24 +29,25 @@ def lambda_handler(event, context):
     # Extract query parameters
     query_params = event.get('queryStringParameters', {})
     
-    name = query_params.get('name')
     email = query_params.get('email')
-    phone =  query_params.get('phone')
+    unit = query_params.get('unit')
     text =  query_params.get('text')
-    # Extract data from request body
-    # body_str = event.get('body', '{}')
-    # if body_str:
-    #     body = json.loads(body_str)
-    #     name = body.get('name')
-    #     email = body.get('email')
-    #     phone = body.get('phone')
-    #     text = body.get('text')
-    # else:
-    #     name = email = phone = text = None
+
+    download_tenant_yaml()
+    result = (verify_tenant(email,unit))
+    if result == True:
+        print("Forward to LLC")
+    else:
+        return {
+            'statusCode': 401, #403
+            'headers': {
+                'Location': 'https://5069-pernod-form.s3.us-east-2.amazonaws.com/not-current-tenant.html', # point to redirects
+                'Access-Control-Allow-Headers': 'Content-Type',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            }
+        }
     
-    # message = "{} {} {}".format(manner, business, family)
-    
-    # Your logic here
     message = (f"VINDOT FTW")
         # This address must be verified with Amazon SES.
     SENDER = "owners@vindot.llc"
@@ -38,27 +56,15 @@ def lambda_handler(event, context):
     BODY_TEXT = message
     
     BODY_HTML = """
-    Name: {}
-    <br>
     Email: {}
     <br>
-    Phone: {}
+    Unit: {}
     <br>
     Message: {}
     <br>
-    """.format(name, email, phone, text)
+    """.format(email, unit, text)
 
     print(BODY_HTML)
-    # # The HTML body of the email.
-    # BODY_HTML = """<html>
-    # <head></head>
-    # <body>
-    #   <h1>Hello!</h1>
-    #   <p>{message}</p>
-    # </body>
-    # </html>
-   #"""
-    
 
     CHARSET = "UTF-8"
     client = boto3.client('ses', region_name="us-east-2")

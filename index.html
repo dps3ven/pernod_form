@@ -47,16 +47,13 @@
                 <div class="container">
 
                 </div>
-                <input type="text" class="textinput" id="name" name="name" placeholder="Please enter your name"
-                    required><br>
-                <br>
-                <input type="email" class="textinput" id="email" name="email" placeholder="Please enter your email"
+
+                <input type="email" class="textinput" id="email" name="email" placeholder="Please enter your buildium email"
                     required title="Please enter a valid email address" maxlength="64">
 
                 <br>
                 <br>
-                <input type="tel" class="textinput" id="phone" name="phone" placeholder="Please enter your phone #"
-                    pattern="^\d{10}$" title="Please enter 10 digit number" maxlength="10">
+                <input type="text" class="textinput" id="unit" name="unit" placeholder="Please enter your unit #" required>
                 <br>
                 </p>
                 <label for="textarea"></label>
@@ -81,22 +78,12 @@
 
         document.getElementById('myForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            var phoneNumberString = document.getElementById('phone').value
-            function formatPhoneNumber(phoneNumberString) {
-                var cleaned = ('' + phoneNumberString).replace(/\D/g, '');
-                var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-                if (match) {
-                    return '(' + match[1] + ') ' + match[2] + '-' + match[3];
-                }
-                return null;
-            }
-            const name = document.getElementById('name').value;
+ 
             const email = document.getElementById('email').value;
-            const phone = formatPhoneNumber(phoneNumberString);
+            const unit = document.getElementById('unit').value;
             const text = document.getElementById('text').value;
-            console.log(phone)
 
-            const queryString = `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(phone)}&text=${encodeURIComponent(text)}`;
+            const queryString = `email=${encodeURIComponent(email)}&unit=${encodeURIComponent(unit)}&text=${encodeURIComponent(text)}`;
             const url = `https://1xbqvgjn40.execute-api.us-east-2.amazonaws.com/dev/?${queryString}`;
             console.log(url)
             fetch(url, {
