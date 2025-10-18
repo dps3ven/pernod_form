@@ -48,17 +48,20 @@
 
                 </div>
 
-                <input type="email" class="textinput" id="email" name="email" placeholder="Please enter your buildium email"
-                    required title="Please enter a valid email address" maxlength="64">
+                <input type="email" class="textinput" id="email" name="email"
+                    placeholder="Please enter your Vindot buildium email" required title="Please enter a valid email address"
+                    maxlength="64">
 
                 <br>
                 <br>
-                <input type="text" class="textinput" id="unit" name="unit" placeholder="Please enter your unit #" required>
+                <input type="text" class="textinput" id="unit" name="unit" placeholder="Please enter your unit - ex: 5069A"
+                    required>
                 <br>
                 </p>
                 <label for="textarea"></label>
                 <p style="font-size: larger;">How can we help?</p>
-                <textarea class="textinput" id="text" name="text" rows="10" cols="50" style="text-align:left; vertical-align:top; padding:10px"></textarea>
+                <textarea class="textinput" id="text" name="text" rows="10" cols="50"
+                    style="text-align:left; vertical-align:top; padding:10px"></textarea>
                 <br>
                 <br>
 
@@ -75,32 +78,42 @@
     </div>
 
     <script>
+        // Reset form if coming from not-current-tenant page
+        if (new URLSearchParams(window.location.search).get('reset') === 'true') {
+            document.getElementById('myForm').reset();
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
 
         document.getElementById('myForm').addEventListener('submit', function (event) {
             event.preventDefault();
- 
+
             const email = document.getElementById('email').value;
             const unit = document.getElementById('unit').value;
             const text = document.getElementById('text').value;
 
             const queryString = `email=${encodeURIComponent(email)}&unit=${encodeURIComponent(unit)}&text=${encodeURIComponent(text)}`;
             const url = `https://1xbqvgjn40.execute-api.us-east-2.amazonaws.com/dev/?${queryString}`;
+            const redirectUrl = '/not-current-tenant.html'
             console.log(url)
+            console.log(redirectUrl)
             fetch(url, {
                 method: 'POST'
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    const responseMessage = document.getElementById('responseMessage');
-                    responseMessage.style.display = 'block';
-                    document.getElementById('myForm').reset(); // Reset the form -->
-                    window.location.href = 'thank-you.html'
+                .then(response => {
+                    console.log('Status Code:', response.status);
+                    if (response.status === 200) {
+                        document.getElementById('myForm').reset();
+                        window.location.href = 'thank-you.html';
+                    } else if (response.status === 401 || response.status === 302) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        throw new Error('Request failed');
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                     const responseMessage = document.getElementById('responseMessage');
-                    responseMessage.textContent = 'An error occurred while processing your request. Please try again.';
+                    responseMessage.textContent = 'An error occurred while processing your request. Please check your user information.';
                     responseMessage.style.display = 'block';
                 });
         });
